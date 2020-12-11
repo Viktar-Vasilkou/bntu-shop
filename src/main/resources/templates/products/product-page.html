@@ -9,8 +9,11 @@
 <body>
 <div th:insert="~{parts/navbar::nav}"></div>
 <div class="container">
-    <div class="row">
-        <div class="col mt-5">
+    <div class="row mt-5">
+        <div class="col w-25" th:if="${product.fileName}">
+            <img style="width: 350px; height: 450px; object-fit: cover" th:src="@{'/img/' + ${product.fileName}}" class="img-thumbnail">
+        </div>
+        <div class="col w-75">
             <div class="row">
                 <h2 th:text="${product.name}"></h2>
             </div>
@@ -18,24 +21,20 @@
                 <p th:text="${product.description}"></p>
             </div>
             <div class="row">
-                <p>Cost: </p>
+                <p>Cost:</p>
                 <p th:text="${product.cost}"></p>
             </div>
             <div class="row">
                 <p>Amount: </p>
                 <p th:text="${product.amount}"></p>
             </div>
-        </div>
-        <div class="col mt-5" th:if="${product.fileName}">
-            <img width="100%" th:src="@{'/img/' + ${product.fileName}}" class="img-thumbnail">
+            <form th:action="@{/cart/add}" method="POST" class="row">
+                <input hidden th:value="${product.id}" name="id">
+                <input hidden th:value="1" name="amount">
+                <button type="submit" class="btn btn-success">Add to cart</button>
+            </form>
         </div>
     </div>
-
-    <form th:action="@{/cart/add}" method="POST">
-        <input hidden th:value="${product.id}" name="id">
-        <input hidden th:value="1" name="amount">
-        <button type="submit">Add to cart</button>
-    </form>
 </div>
 
 <div th:insert="~{parts/scripts::copy}"></div>
