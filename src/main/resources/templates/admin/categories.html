@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <div th:insert="~{parts/general::import}"></div>
+</head>
+<body>
+<div th:insert="~{parts/navbar::nav}"></div>
+<div class="container w-75 mt-2">
+    <div class="row d-flex flex-row-reverse">
+        <button type="button" class="btn btn-success mr-2 ml-2" data-toggle="modal" data-target="#categoryModal">
+            Add new category
+        </button>
+        <a type="button" class="btn btn-secondary ml-2" th:href="@{/admin/products}">
+            Products
+        </a>
+        <a type="button" class="btn btn-secondary" th:href="@{/admin/orders}">
+            Orders
+        </a>
+    </div>
+    <div class="alert alert-success mt-3 mb-3" role="alert" th:if="${msg}" id="my-alert" th:text="${msg}"></div>
+    <table class="table table-sm mt-2 ">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category:${categories}">
+            <td>
+                <form th:action="@{/admin/categories}" th:method="PATCH" id="update-form">
+                    <input type="hidden" name="id" th:value="${category.id}">
+                    <input type="text" class="form-control" th:value="${category.name}" name="name">
+                </form>
+            </td>
+            <td class="w-25">
+                <div class="row">
+
+                    <input class="btn btn-outline-secondary ml-3" type="submit" th:value="Edit" form="update-form">
+                    <form th:action="@{/admin/categories/{id}(id=${category.id})}" th:method="DELETE">
+                        <button type="submit" class="btn btn-link" style="color: black">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:insert="~{parts/modals::categoryForm}"></div>
+<div th:insert="~{parts/scripts::copy}"></div>
+</body>
+</html>

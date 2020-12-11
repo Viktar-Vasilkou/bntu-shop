@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <div th:insert="~{parts/general::import}"></div>
+</head>
+<body>
+<div th:insert="~{parts/navbar::nav}"></div>
+
+<div class="container mt-3">
+    <div th:if="${cart.entrySet()} and ${cart.entrySet().size() > 0}">
+        <h1 th:if="${totalPrice}" th:text="'Total price: ' + ${totalPrice} + ' BYN'"></h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Img</th>
+                <th scope="col">Product</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartItem : ${cart.entrySet()}">
+                <td>
+                    <img th:src="@{'/img/' + ${cartItem.getKey().fileName}}" style="width: 40px; object-fit: cover">
+                </td>
+                <td th:text="${cartItem.getKey().name}"></td>
+                <td th:text="${cartItem.getKey().cost}"></td>
+                <td th:text="${cartItem.getValue()}"></td>
+                <td>
+                    <form th:action="@{/cart/delete}" th:method="DELETE">
+                        <input type="hidden" th:value="${cartItem.getKey().id}" name="id">
+                        <button class="btn btn-link" type="submit" style="color: black">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-success mr-5 ml-5" data-toggle="modal" data-target="#orderModal">
+            Confirm order
+        </button>
+    </div>
+    <div th:unless="${cart.entrySet()} and ${cart.entrySet().size() > 0}">
+        <h1>Корзина пуста</h1>
+    </div>
+</div>
+
+<div th:insert="~{parts/modals::orderForm}"></div>
+<div th:insert="~{parts/scripts::copy}"></div>
+</body>
+</html>

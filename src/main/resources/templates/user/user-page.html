@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User profile</title>
+    <div th:insert="~{parts/general::import}"></div>
+</head>
+<body>
+<div th:insert="~{parts/navbar::nav}"></div>
+
+
+<div class="container mt-5">
+
+    <div class="row ">
+        <div class="col">
+            <img style="width: 320px; height: 100%; object-fit: cover" src="/static/images/programmer.svg">
+        </div>
+        <div class="col">
+            <h2 th:text="'Profile: ' + ${user.login}">Profile </h2>
+            <form th:method="PATCH" th:action="@{/account/edit}" th:object="${user}">
+                <input type="hidden" th:value="*{id}" name="id">
+                <input type="hidden" th:value="*{login}" name="login">
+                <div class="form-group mt-3">
+                    <label>Name:</label>
+                    <input required class="form-control w-50" type="text" name="name" th:value="*{name}"/>
+                    <div style="color: firebrick" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+                        Error
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Surname: </label>
+                    <input required class="form-control w-50" type="text" name="surname" th:value="*{surname}"/>
+                    <div style="color: firebrick" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname
+                        Error
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <label>Phone number:</label>
+                    <input required class="form-control w-50" type="tel" name="phoneNumber" th:value="*{phoneNumber}"/>
+                    <div style="color: firebrick" th:if="${#fields.hasErrors('phoneNumber')}"
+                         th:errors="*{phoneNumber}">
+                        phoneNumber Error
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Edit"/>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <a type="button" class="btn btn-secondary mr-2" th:href="@{/orders}">
+            Orders
+        </a>
+    </div>
+</div>
+
+<div th:insert="~{parts/scripts::copy}"></div>
+</body>
+</html>

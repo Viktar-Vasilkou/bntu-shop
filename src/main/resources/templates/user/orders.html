@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <div th:insert="~{parts/general::import}"></div>
+</head>
+<body>
+<div th:insert="~{parts/navbar::nav}"></div>
+
+<div class="container mt-2">
+    <div class="row d-flex flex-row-reverse">
+        <a type="button" class="btn btn-secondary" th:href="@{/account}">
+            Back
+        </a>
+    </div>
+    <table class="table table-sm mt-2">
+        <thead>
+        <tr>
+            <th scope="col">Address</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order: ${orders}">
+            <td th:text="${order.address}"></td>
+            <td th:text="${order.totalPrice}"></td>
+            <td th:if="${order.status}" th:text="'Обработано'"></td>
+            <td th:unless="${order.status}" th:text="'Ожидание подтверждения'"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:insert="~{parts/scripts::copy}"></div>
+</body>
+</html>

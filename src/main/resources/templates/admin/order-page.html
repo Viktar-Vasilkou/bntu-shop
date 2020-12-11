@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="~{parts/general::import}"></div>
+</head>
+<body>
+<div th:insert="~{parts/navbar::nav}"></div>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <div class="row row-cols-2">
+                <div class="col mb-4" th:each="items : ${order.orderItems}">
+                    <div class="card">
+                        <div th:if="${items.product.fileName}">
+                            <img style="height: 200px; width: 100%; object-fit: cover"
+                                 th:src="@{'/img/' + ${items.product.fileName}}"
+                                 class="card-img-top"
+                                 alt="...">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${items.product.name}"></h5>
+                            <p class="card-text" th:text="${items.product.cost} + ' BYN'"></p>
+                            <p class="card-text" th:text="'x'+  ${items.amount}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>Customer: </label>
+                <p class="form-control" th:text="${order.user.surname} + ' ' + ${order.user.surname} "></p>
+
+                <label>Phone number: </label>
+                <p class="form-control" th:text="${order.user.phoneNumber}"></p>
+
+                <label>Address: </label>
+                <textarea readonly class="form-control" th:text="${order.address}"></textarea>
+
+                <label>Total Price: </label>
+                <h3 class="form-control" th:text="${order.totalPrice} + ' BYN'"></h3>
+
+                <form th:action="@{/admin/orders/{id}/confirm(id=${order.id})}" th:method="PATCH">
+                    <input hidden th:value="${order.id}">
+                    <input class="btn btn-primary" type="submit" th:value="'Accept'">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="~{parts/scripts::copy}"></div>
+</body>
+</html>

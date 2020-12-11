@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <div th:insert="~{parts/general::import}"></div>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <h2>Registration Page</h2>
+    </div>
+    <form action="/registration" method="post" th:object="${userForm}">
+        <div class="form-group mt-3">
+            <label for="login">Login</label>
+            <input class="form-control w-25 p-3" id="login" name="login" th:field="*{login}"/>
+            <div style="color: firebrick" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
+        </div>
+        <div class="form-group mt-3">
+            <label for="password">Password</label>
+            <input class="form-control w-25" id="password" name="password" th:field="*{password}"/>
+            <div style="color: firebrick" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+                Error
+            </div>
+        </div>
+
+        <button class="btn btn-success" type="submit">Sign In</button>
+    </form>
+</div>
+<div th:insert="~{parts/scripts::copy}"></div>
+</body>
+</html>

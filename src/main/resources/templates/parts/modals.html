@@ -1,0 +1,138 @@
+<div th:block xmlns:th="http://www.thymeleaf.org" th:fragment="productForm">
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New product</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/products/create}" th:method="POST" id="newProd"
+                          enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input required class="form-control" type="text" name="name" id="name">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="cost">Cost</label>
+                            <div class="input-group">
+                                <input required class="form-control" type="number" name="cost" id="cost">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="amount">Amount</label>
+                            <input required class="form-control" type="number" name="amount" id="amount">
+                        </div>
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroup">Category</label>
+                            </div>
+                            <select required class="custom-select" id="inputGroup" name="category">
+                                <option disabled selected value="">Choice</option>
+                                <option class="dropdown-item" th:each="categ:${categories}" th:text="${categ.name}"
+                                        th:value="${categ.id}"></option>
+                            </select>
+                        </div>
+                        <div class="input-group mt-3">
+                            <input type="file" accept="image/jpeg,image/png" class="btn btn-secondary" name="file">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="description">Description</label>
+                            <textarea required class="form-control" name="description"
+                                      id="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="newProd">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:block xmlns:th="http://www.thymeleaf.org" th:fragment="categoryForm">
+    <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Category</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/categories/create}" th:method="POST" id="newCategory" th:object="${newCategory}">
+                        <div class="form-group">
+                            <label for="nameCategory">Name</label>
+                            <input required class="form-control" type="text" name="name" id="nameCategory">
+                            <div style="color: firebrick" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Surname
+                                Error
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="newCategory">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:block xmlns:th="http://www.thymeleaf.org" th:fragment="orderForm">
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm order</h5>
+                </div>
+                <div class="modal-body">
+                    <h3 th:text="'Total price: ' + ${totalPrice} + ' BYN'"></h3>
+                    <form th:action="@{/orders/create}" th:method="POST" id="newOrder" th:object="${orderForm}">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input required class="form-control" type="text" name="address" id="address">
+                            <div style="color: firebrick" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Surname
+                                Error
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="newOrder">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:block xmlns:th="http://www.thymeleaf.org" th:fragment="filterForm">
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/products}" th:method="GET" id="filter" th:object="${orderForm}">
+                        <div class="form-group">
+                            <label for="filter-category">Category</label>
+                            <select class="custom-select" id="filter-category" name="category">
+                                <option disabled selected value="">Select category</option>
+                                <option class="dropdown-item" th:each="category :${categories}" th:text="${category.name}"
+                                        th:value="${category.id}"></option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="filter">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

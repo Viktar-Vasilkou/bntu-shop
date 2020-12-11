@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <div th:insert="~{parts/general::import}"></div>
+</head>
+<body>
+<div th:insert="~{parts/navbar::nav}"></div>
+
+<div class="container mt-2">
+    <div class="row d-flex flex-row-reverse">
+        <a type="button" class="btn btn-secondary" th:href="@{/admin/categories}">
+            Categories
+        </a>
+        <a type="button" class="btn btn-secondary mr-2" th:href="@{/admin/products}">
+            Products
+        </a>
+    </div>
+    <table class="table table-sm mt-2">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Address</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.user.name}"></td>
+            <td th:text="${order.address}"></td>
+            <td th:text="${order.totalPrice}"></td>
+            <td class="w-25">
+                <div class="row">
+                    <form th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="GET">
+                        <button class="btn btn-primary" type="submit">Show</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:insert="~{parts/scripts::copy}"></div>
+</body>
+</html>
