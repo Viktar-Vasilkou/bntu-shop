@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,6 +43,9 @@ public class AdminProductController {
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("products", productPage.toList());
         model.addAttribute("categories", categoryService.getAll());
+        if (!model.containsAttribute("newProduct")){
+            model.addAttribute("newProduct", new Product());
+        }
         return "admin/products";
     }
 
@@ -50,8 +55,13 @@ public class AdminProductController {
                                 @RequestParam Category category,
                                 @RequestParam MultipartFile file,
                                 RedirectAttributes redirectAttributes) throws IOException {
+        if (file.isEmpty()){
+            bindingResult.addError(new FieldError("product", "fileName", "Please add photo"));
+        }
         if (bindingResult.hasErrors()) {
-            return "admin/products";
+            redirectAttributes.addFlashAttribute("newProduct", product);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newProduct", bindingResult);
+            return "redirect:/admin/products";
         }
         product.setCategory(category);
         product.setFileName(fileService.uploadFile(file));
@@ -64,19 +74,27 @@ public class AdminProductController {
 
     @GetMapping("/{id}")
     public String getProducts(@PathVariable Long id, Model model) {
-        model.addAttribute("product", productService.getById(id));
+        if(!model.containsAttribute("product")){
+            model.addAttribute("product", productService.getById(id));
+        }
         model.addAttribute("categories", categoryService.getAll());
         return "admin/product-edit";
     }
 
     @PatchMapping("/{id}")
     public String updateProduct(@PathVariable Long id,
-                                @ModelAttribute Product product,
+                                @ModelAttribute @Valid Product product,
+                                BindingResult bindingResult,
                                 @RequestParam MultipartFile file,
                                 RedirectAttributes redirectAttributes) throws IOException {
 
         Product productDb = productService.getById(id);
 
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("product", productDb);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.product", bindingResult);
+            return "redirect:/admin/products/" + product.getId();
+        }
         if (!file.isEmpty()) {
             fileService.deleteFile(productDb.getFileName());
             productDb.setFileName(fileService.uploadFile(file));

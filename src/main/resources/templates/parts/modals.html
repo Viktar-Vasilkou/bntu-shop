@@ -6,24 +6,27 @@
                     <h5 class="modal-title">New product</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/admin/products/create}" th:method="POST" id="newProd"
+                    <form th:action="@{/admin/products/create}" th:method="POST" id="newProd" th:object="${newProduct}"
                           enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input required class="form-control" type="text" name="name" id="name">
+                            <input required class="form-control" type="text" name="name" id="name" th:value="*{name}">
+                            <div style="color: firebrick" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
                         </div>
                         <div class="form-group mt-3">
                             <label for="cost">Cost</label>
                             <div class="input-group">
-                                <input required class="form-control" type="number" name="cost" id="cost">
+                                <input required class="form-control" type="number" name="cost" id="cost" min="0" th:value="*{cost}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">$</span>
                                 </div>
+                                <div style="color: firebrick" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">Cost error</div>
                             </div>
                         </div>
                         <div class="form-group mt-3">
                             <label for="amount">Amount</label>
-                            <input required class="form-control" type="number" name="amount" id="amount">
+                            <input required class="form-control" type="number" name="amount" id="amount" min="0" th:value="*{cost}">
+                            <div style="color: firebrick" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Cost error</div>
                         </div>
                         <div class="input-group mt-3">
                             <div class="input-group-prepend">
@@ -37,11 +40,13 @@
                         </div>
                         <div class="input-group mt-3">
                             <input type="file" accept="image/jpeg,image/png" class="btn btn-secondary" name="file">
+                            <br>
+                            <div style="color: firebrick" th:if="${#fields.hasErrors('fileName')}" th:errors="*{fileName}">File error</div>
                         </div>
                         <div class="form-group mt-3">
                             <label for="description">Description</label>
-                            <textarea required class="form-control" name="description"
-                                      id="description"></textarea>
+                            <textarea required class="form-control" name="description" id="description" th:text="*{description}"></textarea>
+                                    <div style="color: firebrick" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</div>
                         </div>
                     </form>
                 </div>

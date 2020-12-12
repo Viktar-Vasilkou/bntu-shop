@@ -30,8 +30,8 @@ public class Product implements Serializable {
     @NotBlank(message = "Description should be not empty")
     private String description;
 
-    @DecimalMax(value = "1_000_000", message = "Cost should be less then 1 million")
-    @DecimalMin(value = "0", message = "Cost should be positive")
+    @Digits(integer = 1_000_000, fraction = 2)
+    @DecimalMin(value = "0.0", message = "Cost should be positive")
     private BigDecimal cost;
 
     @Min(value = 0, message = "Amount cannot be negative")
