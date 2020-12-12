@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -20,11 +21,23 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 3, max = 75, message = "Name should be contains more than 3 characters")
+    @NotBlank(message = "Name should be not empty")
     private String name;
+
+    @Size(min = 10, max = 250, message = "Description should be between 10 and 250 characters")
+    @NotBlank(message = "Description should be not empty")
     private String description;
+
+    @DecimalMax(value = "1_000_000", message = "Cost should be less then 1 million")
+    @DecimalMin(value = "0", message = "Cost should be positive")
     private BigDecimal cost;
+
+    @Min(value = 0, message = "Amount cannot be negative")
     private Integer amount;
     private boolean status;
+
     @Column(name = "file_name")
     private String fileName;
 
