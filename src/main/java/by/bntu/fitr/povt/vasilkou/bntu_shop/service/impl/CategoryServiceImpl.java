@@ -2,6 +2,7 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl;
 
 import by.bntu.fitr.povt.vasilkou.bntu_shop.repositories.CategoryRepository;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Category;
+import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CategoryServiceImpl {
+public class CategoryServiceImpl implements CategoryService {
 
     private CategoryRepository categoryRepository;
 

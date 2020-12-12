@@ -8,7 +8,6 @@ import by.bntu.fitr.povt.vasilkou.bntu_shop.security.MyUserDetails;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CartService;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.OrderItemService;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +20,15 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
 
-    @Autowired
-    CartService cartService;
-    @Autowired
-    OrderService orderService;
-    @Autowired
-    OrderItemService orderItemService;
+    private final CartService cartService;
+    private final OrderService orderService;
+    private final OrderItemService orderItemService;
+
+    public OrderController(CartService cartService, OrderService orderService, OrderItemService orderItemService) {
+        this.cartService = cartService;
+        this.orderService = orderService;
+        this.orderItemService = orderItemService;
+    }
 
     @GetMapping
     public String getOrders(@AuthenticationPrincipal MyUserDetails userDetails,

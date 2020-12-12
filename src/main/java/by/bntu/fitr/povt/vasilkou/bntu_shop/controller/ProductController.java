@@ -2,8 +2,8 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.controller;
 
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Category;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Product;
+import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CategoryService;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.ProductService;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.CategoryServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ProductController {
 
     private final ProductService productService;
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
 
-    public ProductController(ProductService productService, CategoryServiceImpl categoryService) {
+    public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
     }

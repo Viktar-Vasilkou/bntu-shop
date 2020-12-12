@@ -4,7 +4,7 @@ import by.bntu.fitr.povt.vasilkou.bntu_shop.dto.UserDto;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.mappers.api.UserMapper;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.User;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.security.MyUserDetails;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.UserServiceImpl;
+import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +17,10 @@ import javax.validation.Valid;
 @RequestMapping("/account")
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final UserMapper userMapper;
 
-    public UserController(UserServiceImpl userService, UserMapper userMapper) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }

@@ -2,9 +2,9 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.controller.admin;
 
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Category;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Product;
+import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CategoryService;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.FileService;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.CategoryServiceImpl;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.ProductServiceImpl;
+import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +24,11 @@ public class AdminProductController {
     private static final String PRODUCT_UPDATED_MSG = "Product updated successfully";
     private static final String PRODUCT_DELETED_MSG = "Product deleted successfully";
 
-    private final ProductServiceImpl productService;
-    private final CategoryServiceImpl categoryService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
     private final FileService fileService;
 
-    public AdminProductController(ProductServiceImpl productService, CategoryServiceImpl categoryService, FileService fileService) {
+    public AdminProductController(ProductService productService, CategoryService categoryService, FileService fileService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.fileService = fileService;

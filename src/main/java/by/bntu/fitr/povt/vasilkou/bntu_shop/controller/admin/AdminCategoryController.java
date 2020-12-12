@@ -2,6 +2,7 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.controller.admin;
 
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Category;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Product;
+import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CategoryService;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.FileService;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.CategoryServiceImpl;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.ProductServiceImpl;
@@ -24,9 +25,9 @@ public class AdminCategoryController {
     private static final String CATEGORY_UPDATED_MSG = "Category updated successfully";
     private static final String CATEGORY_DELETED_MSG = "Category deleted successfully";
 
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
 
-    public AdminCategoryController(CategoryServiceImpl categoryService) {
+    public AdminCategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
