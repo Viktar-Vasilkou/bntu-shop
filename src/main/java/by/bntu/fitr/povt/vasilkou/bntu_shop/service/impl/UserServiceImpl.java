@@ -5,7 +5,6 @@ import by.bntu.fitr.povt.vasilkou.bntu_shop.mappers.api.UserMapper;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.repositories.UserRepository;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.User;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +13,11 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 

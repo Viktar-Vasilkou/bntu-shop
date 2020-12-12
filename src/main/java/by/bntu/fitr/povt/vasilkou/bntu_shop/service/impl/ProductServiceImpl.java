@@ -4,15 +4,11 @@ import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Category;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.repositories.ProductRepository;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Product;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.SecureRandom;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -20,10 +16,9 @@ public class ProductServiceImpl implements ProductService {
 
     private static final int AMOUNT_OF_PRODUCTS_ON_PAGE = 15;
 
-    private ProductRepository repository;
+    private final ProductRepository repository;
 
-    @Autowired
-    public void setRepository(ProductRepository repository) {
+    public ProductServiceImpl(ProductRepository repository) {
         this.repository = repository;
     }
 

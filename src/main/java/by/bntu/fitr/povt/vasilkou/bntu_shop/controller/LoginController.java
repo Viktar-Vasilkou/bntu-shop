@@ -2,7 +2,6 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.controller;
 
 import by.bntu.fitr.povt.vasilkou.bntu_shop.dto.RegistrationDto;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.security.UserDetailsServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

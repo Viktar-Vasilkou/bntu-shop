@@ -1,8 +1,6 @@
 package by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl;
 
-import by.bntu.fitr.povt.vasilkou.bntu_shop.model.OrderItem;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Product;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.repositories.OrderItemRepository;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.repositories.ProductRepository;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CartService;
 import org.springframework.context.annotation.Scope;
@@ -12,17 +10,18 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Transactional
 public class CartServiceImpl implements CartService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    private Map<Product, Integer> products = new HashMap<>();
-
+    private final Map<Product, Integer> products = new HashMap<>();
 
     public CartServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -59,7 +58,6 @@ public class CartServiceImpl implements CartService {
     public void checkout() throws Exception  {
         Product product;
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            // Refresh quantity for every product before checking
             product = productRepository.findById(entry.getKey().getId()).get();
             if (product.getAmount() < entry.getValue())
                 throw new Exception("Amount diff");

@@ -3,7 +3,6 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.controller;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.dto.OrderDto;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Product;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CartService;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

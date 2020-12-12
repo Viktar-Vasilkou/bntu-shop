@@ -1,21 +1,14 @@
 package by.bntu.fitr.povt.vasilkou.bntu_shop.controller.admin;
 
 import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Category;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.model.Product;
 import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.CategoryService;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.api.FileService;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.CategoryServiceImpl;
-import by.bntu.fitr.povt.vasilkou.bntu_shop.service.impl.ProductServiceImpl;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/admin/categories")
@@ -30,11 +23,6 @@ public class AdminCategoryController {
     public AdminCategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
-    // ----------------------- Category --------------------------------------
-    /*
-        Добавить предупреждение, что после удаления, удаляться и все товары
-     */
 
     @GetMapping()
     public String getCategories(Model model) {

@@ -1,13 +1,8 @@
 package by.bntu.fitr.povt.vasilkou.bntu_shop.validator;
 
-import org.assertj.core.internal.BigDecimals;
-import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.junit.runners.Parameterized;
-import org.springframework.beans.factory.annotation.Value;
 
-import javax.xml.validation.Validator;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
