@@ -8,8 +8,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
@@ -29,11 +27,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(Product product) {
-        return repository.save(product);
-    }
-
-    @Override
-    public Product edit(Product product) {
         return repository.save(product);
     }
 
@@ -70,10 +63,4 @@ public class ProductServiceImpl implements ProductService {
 
         return repository.findAllAvailable(paging);
     }
-
-    @Override
-    public List<Product> getProductContains(String string) {
-        return repository.findByNameContaining(string);
-    }
-
 }

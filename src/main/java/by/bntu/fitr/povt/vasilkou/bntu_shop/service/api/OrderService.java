@@ -16,8 +16,6 @@ public interface OrderService {
 
     Order createOrder(List<OrderItem> items, User user, OrderDto dto, BigDecimal totalPrice);
 
-    Order edit(Order order);
-
     boolean delete(Order order);
 
     Order confirm(Order order);

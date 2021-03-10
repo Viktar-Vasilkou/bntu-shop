@@ -25,16 +25,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(new User());
     }
 
-    public UserDto getByIdDto(Long id) {
-        return userMapper.toDto(getById(id));
-    }
-
     public User save(User user) {
         return userRepository.save(user);
-    }
-
-    public User edit(UserDto userDto) {
-         return userRepository.save(userMapper.toEntity(userDto));
     }
 
     public void delete(User user) {

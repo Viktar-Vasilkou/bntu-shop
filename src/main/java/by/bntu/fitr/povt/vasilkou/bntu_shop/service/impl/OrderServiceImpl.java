@@ -27,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    //todo pi-pi pu-pu check
     public Order getById(Long id) {
         if (id == null) {
             return null;
@@ -41,19 +42,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(List<OrderItem> items, User user, OrderDto dto, BigDecimal totalPrice) {
-        Order order = new Order();
-        order.setUser(user);
-        order.setOrderItems(items);
-        order.setAddress(dto.getAddress());
-        order.setTotalPrice(totalPrice);
-        order.setStatus(false);
-        order.setDate(LocalDateTime.now());
-        return order;
-    }
-
-    @Override
-    public Order edit(Order order) {
-        return null;
+        return Order.builder()
+                .user(user)
+                .orderItems(items)
+                .address(dto.getAddress())
+                .totalPrice(totalPrice)
+                .status(false)
+                .date(LocalDateTime.now()).build();
     }
 
     @Override
@@ -74,8 +69,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Page<Order> getAllByUser(int page, User user) {
-
+        public Page<Order> getAllByUser(int page, User user) {
         return orderRepository.findAllByUser(user, PageRequest.of(page, 15));
     }
 

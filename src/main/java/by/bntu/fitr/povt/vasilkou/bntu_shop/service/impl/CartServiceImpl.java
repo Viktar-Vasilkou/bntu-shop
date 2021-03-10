@@ -33,6 +33,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    //todo Mackeyb 6
     public void addCartItem(Product product, int amount) {
         if (products.containsKey(product)) {
             products.replace(product, products.get(product) + amount);

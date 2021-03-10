@@ -9,8 +9,6 @@ public interface CategoryService {
 
     Category save(Category category);
 
-    Category edit(Category category);
-
     void delete(Category category);
 
     List<Category> getAll();
