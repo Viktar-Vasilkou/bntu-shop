@@ -27,7 +27,6 @@ public class UserDetailsServiceImplTest {
 
     private static final String TEST_LOGIN = "Victor";
     private static final String TEST_PASSWORD = "password";
-    private static final boolean TEST_ACTIVE = false;
     private static final String TEST_ROLE_NAME = "ROLE_USER";
 
     @Mock
@@ -93,7 +92,6 @@ public class UserDetailsServiceImplTest {
         verify(userRepository, times(1)).findByLogin(TEST_LOGIN);
         verify(passwordEncoder, times(1)).encode(TEST_PASSWORD);
         verify(roleRepository, times(1)).findByRoleName(TEST_ROLE_NAME);
-        verifyNoMoreInteractions(userRepository, passwordEncoder, roleRepository);
     }
 
     @Test
@@ -114,5 +112,14 @@ public class UserDetailsServiceImplTest {
         verify(passwordEncoder, times(0)).encode(TEST_PASSWORD);
         verify(roleRepository, times(0)).findByRoleName(TEST_ROLE_NAME);
         verifyNoMoreInteractions(userRepository, passwordEncoder, roleRepository);
+    }
+
+    @Test
+    public void saveNewUser_tryToSaveNull_false(){
+        RegistrationDto user = null;
+
+        boolean actual = userDetailsService.saveNewUser(user);
+
+        assertFalse(actual);
     }
 }

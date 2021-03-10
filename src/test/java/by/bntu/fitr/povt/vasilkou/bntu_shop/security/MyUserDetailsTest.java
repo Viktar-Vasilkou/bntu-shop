@@ -40,7 +40,7 @@ public class MyUserDetailsTest {
     }
 
     @Test
-    public void getAuthorities_tryToGetAuthorities_hasUserAuthority() {
+    public void testGetAuthorities_tryToGetAuthorities_hasUserAuthority() {
         myUserDetails.getUser().setRoles(TEST_ROLES);
 
         List<SimpleGrantedAuthority> expected = TEST_ROLES.stream()
@@ -56,7 +56,7 @@ public class MyUserDetailsTest {
     }
 
     @Test
-    public void getAuthorities_tryToGetAuthorities_hasNoAuthority() {
+    public void testGetAuthorities_tryToGetAuthorities_hasNoAuthority() {
         List<SimpleGrantedAuthority> expected = new ArrayList<>();
 
         when(user.getRoles()).thenReturn(new HashSet<>());
@@ -65,5 +65,43 @@ public class MyUserDetailsTest {
 
         assertEquals(actual, expected);
         verify(user, atLeastOnce()).getRoles();
+    }
+
+    @Test
+    public void testGetPassword_tryToGetPassword_Password(){
+        String password = "password";
+        when(user.getPassword()).thenReturn(password);
+
+        assertEquals(password, myUserDetails.getPassword());
+    }
+
+    @Test
+    public void testGetUsername_tryToGetUsername_Username(){
+        String username = "login";
+        when(user.getLogin()).thenReturn(username);
+
+        assertEquals(username, myUserDetails.getUsername());
+    }
+
+    @Test
+    public void testIsAccountNonExpired_true_true() {
+        assertTrue(myUserDetails.isAccountNonExpired());
+    }
+
+    @Test
+    public void testIsAccountNonLocked_true_true() {
+        assertTrue(myUserDetails.isAccountNonLocked());
+    }
+
+    @Test
+    public void testIsCredentialsNonExpired_true_true() {
+       assertTrue(myUserDetails.isCredentialsNonExpired());
+    }
+
+    @Test
+    public void testIsEnabled_getUserStatus_True() {
+        when(user.isActive()).thenReturn(true);
+
+        assertTrue(myUserDetails.isEnabled());
     }
 }
