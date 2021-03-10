@@ -20,6 +20,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where p.category = :category and p.status = true")
     Page<Product> findAllByCategory(@Param("category")Category category, Pageable pageable);
-
-    List<Product> findByNameContaining(String partOfName);
 }
