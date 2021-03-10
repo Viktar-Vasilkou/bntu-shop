@@ -15,10 +15,11 @@ import java.util.UUID;
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Value("${app.upload.dir:${user.home}}" + "\\Pictures\\Saved Pictures")
+    @Value("${upload.path}")
     private String UPLOAD_PATH;
 
     @Override
+    //todo Mackyeb 8
     public String uploadFile(MultipartFile file) throws IOException {
         String resultFilename = "";
         if (file != null && !file.getOriginalFilename().isEmpty()) {
@@ -38,11 +39,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public String editFile(MultipartFile file) {
-        return null;
-    }
-
-    @Override
+    //todo mackeyb 7
     public boolean deleteFile(String file) throws IOException {
         if (file == null) {
             return false;
