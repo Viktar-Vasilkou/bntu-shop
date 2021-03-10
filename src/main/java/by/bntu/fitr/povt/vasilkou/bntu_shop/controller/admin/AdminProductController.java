@@ -72,31 +72,36 @@ public class AdminProductController {
     }
 
     @GetMapping("/{id}")
-    public String getProducts(@PathVariable Long id, Model model) {
+    public String getProduct(@PathVariable Long id, Model model) {
         if(!model.containsAttribute("product")){
-            model.addAttribute("product", productService.getById(id));
+            Product product = productService.getById(id);
+            if (product.equals(new Product())){
+                return "redirect:/admin/products";
+            }
+            model.addAttribute("product", product);
         }
         model.addAttribute("categories", categoryService.getAll());
         return "admin/product-edit";
     }
 
     @PatchMapping("/{id}")
-    public String updateProduct(@PathVariable Long id,
+    public String updateProduct(@PathVariable("id") Product productDb,
                                 @ModelAttribute @Valid Product product,
                                 BindingResult bindingResult,
-                                @RequestParam MultipartFile file,
+                                @RequestParam(required = false) MultipartFile file,
                                 RedirectAttributes redirectAttributes) throws IOException {
-
-        Product productDb = productService.getById(id);
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("product", productDb);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.product", bindingResult);
             return "redirect:/admin/products/" + product.getId();
         }
-        if (!file.isEmpty()) {
-            fileService.deleteFile(productDb.getFileName());
-            productDb.setFileName(fileService.uploadFile(file));
+
+        if(file != null){
+            if (!file.isEmpty()) {
+                fileService.deleteFile(productDb.getFileName());
+                productDb.setFileName(fileService.uploadFile(file));
+            }
         }
 
         productDb.setName(product.getName());
@@ -104,7 +109,7 @@ public class AdminProductController {
         productDb.setAmount(product.getAmount());
         productDb.setCost(product.getCost());
         productDb.setCategory(product.getCategory());
-        productService.edit(productDb);
+        productService.save(productDb);
         redirectAttributes.addFlashAttribute("msg", PRODUCT_UPDATED_MSG);
         return "redirect:/admin/products";
     }

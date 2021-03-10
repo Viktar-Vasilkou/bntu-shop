@@ -39,8 +39,8 @@ public class AdminCategoryController {
                                  RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("category", category);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", bindingResult);
+            redirectAttributes.addFlashAttribute("newCategory", category);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newCategory", bindingResult);
         } else {
             if (categoryService.save(category) != null) {
                 redirectAttributes.addFlashAttribute("msg", CATEGORY_ADDED_MSG);
@@ -58,7 +58,7 @@ public class AdminCategoryController {
             redirectAttributes.addFlashAttribute("category", category);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newCategory", bindingResult);
         } else {
-            if (categoryService.edit(category) != null) {
+            if (categoryService.save(category) != null) {
                 redirectAttributes.addFlashAttribute("msg", CATEGORY_UPDATED_MSG);
             }
         }
@@ -67,10 +67,9 @@ public class AdminCategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCategory(@PathVariable Long id, RedirectAttributes attributes) {
-        Category category = categoryService.getById(id);
-        attributes.addFlashAttribute("msg", CATEGORY_DELETED_MSG);
+    public String deleteCategory(@PathVariable("id") Category category, RedirectAttributes attributes) {
         categoryService.delete(category);
+        attributes.addFlashAttribute("msg", CATEGORY_DELETED_MSG);
         return "redirect:/admin/categories";
     }
 }

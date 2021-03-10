@@ -5,6 +5,7 @@ import by.bntu.fitr.povt.vasilkou.bntu_shop.security.UserDetailsServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,15 +37,17 @@ public class LoginController {
     public String makeRegistration(@ModelAttribute("userForm") @Valid RegistrationDto user,
                                    BindingResult bindingResult) {
 
-        String redirect = "redirect:/";
-
         if (bindingResult.hasErrors()) {
-            redirect = "util/registration";
-        } else {
-            userDetailsService.saveNewUser(user);
+            return "util/registration";
         }
 
-        return redirect;
+        if (!userDetailsService.saveNewUser(user)) {
+            bindingResult.addError(new FieldError("userForm", "login",
+                    "User with this login is already exists"));
+            return "util/registration";
+        }
+
+        return "redirect:/login";
     }
 
     @GetMapping("/access-denied")

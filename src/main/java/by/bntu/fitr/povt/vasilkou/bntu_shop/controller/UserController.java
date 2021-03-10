@@ -9,10 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -36,13 +33,14 @@ public class UserController {
     }
 
     @PatchMapping("/edit")
+    // todo mackeyb 10
     public String editUser(@AuthenticationPrincipal MyUserDetails userDetails,
                            @ModelAttribute("user") @Valid UserDto userDto,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "user-page";
+            return "user/user-page";
         } else {
-            userDetails.setUser(userService.edit(userDto));
+            userDetails.setUser(userService.save(userMapper.toEntity(userDto)));
         }
         return "redirect:/account";
     }

@@ -39,6 +39,9 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String getProductPage(@PathVariable("id") Long id, Model model) {
+        if(productService.getById(id).equals(new Product())){
+            return "redirect:/products";
+        }
         model.addAttribute("product", productService.getById(id));
         return "products/product-page";
     }
