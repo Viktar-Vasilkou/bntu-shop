@@ -1,6 +1,7 @@
 package by.bntu.fitr.povt.vasilkou.bntu_shop.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
+@Builder
 @Table(name = "order_items")
 @NoArgsConstructor
 @AllArgsConstructor

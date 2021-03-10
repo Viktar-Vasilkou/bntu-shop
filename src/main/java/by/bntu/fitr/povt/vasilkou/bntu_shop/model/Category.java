@@ -2,6 +2,7 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
 @Table(name = "categories")
 @NoArgsConstructor
 @AllArgsConstructor

@@ -2,10 +2,12 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
 @Table(name = "orders")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +26,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "date")
     private LocalDateTime date;
 
@@ -30,7 +34,7 @@ public class Order implements Serializable {
     private BigDecimal totalPrice;
 
     @Column(name = "address")
-    public String address;
+    private String address;
 
     private boolean status;
 
@@ -43,4 +47,15 @@ public class Order implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<OrderItem> orderItems;
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", date=" + date +
+                ", totalPrice=" + totalPrice +
+                ", address='" + address + '\'' +
+                ", status=" + status +
+                ", user=" + user +
+                '}';
+    }
 }

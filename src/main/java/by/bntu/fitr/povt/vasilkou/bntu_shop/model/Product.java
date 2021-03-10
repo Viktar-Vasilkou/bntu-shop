@@ -2,6 +2,7 @@ package by.bntu.fitr.povt.vasilkou.bntu_shop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 
 @Data
 @Entity
+@Builder
 @Table(name = "products")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -63,5 +65,18 @@ public class Product implements Serializable {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", cost=" + cost +
+                ", amount=" + amount +
+                ", status=" + status +
+                ", fileName='" + fileName + '\'' +
+                '}';
     }
 }
