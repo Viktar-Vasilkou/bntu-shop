@@ -15,12 +15,12 @@
     <form action="/registration" method="post" th:object="${userForm}">
         <div class="form-group mt-3">
             <label for="login">Login</label>
-            <input class="form-control w-25 p-3" id="login" name="login" th:field="*{login}"/>
+            <input required class="form-control w-25 p-3" id="login" name="login" th:field="*{login}"/>
             <div style="color: firebrick" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
         </div>
         <div class="form-group mt-3">
             <label for="password">Password</label>
-            <input class="form-control w-25" id="password" name="password" th:field="*{password}"/>
+            <input required class="form-control w-25" type="password" id="password" name="password" th:field="*{password}"/>
             <div style="color: firebrick" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
                 Error
             </div>

@@ -27,6 +27,7 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Cost</th>
+            <th scope="col">Amount</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -39,6 +40,7 @@
             </td>
             <td th:text="${prod.name}"></td>
             <td th:text="${prod.cost}"></td>
+            <td th:text="${prod.amount}"></td>
             <td>
                 <div class="row">
                     <form th:if="${prod.status}" th:action="@{/admin/products/{id}/deactivate(id=${prod.getId()})}"

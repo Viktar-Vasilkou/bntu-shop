@@ -14,23 +14,30 @@
             Back
         </a>
     </div>
-    <table class="table table-sm mt-2">
-        <thead>
-        <tr>
-            <th scope="col">Address</th>
-            <th scope="col">Total Price</th>
-            <th scope="col">Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order: ${orders}">
-            <td th:text="${order.address}"></td>
-            <td th:text="${order.totalPrice}"></td>
-            <td th:if="${order.status}" th:text="'Обработано'"></td>
-            <td th:unless="${order.status}" th:text="'Ожидание подтверждения'"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:unless="${orders.getContent().size() > 0}">
+        История заказов пуста
+    </div>
+    <div th:if="${orders.getContent().size() > 0}">
+        <table class="table table-sm mt-2">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Address</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order: ${orders}">
+                <td th:text="${{order.date}}"></td>
+                <td th:text="${order.address}"></td>
+                <td th:text="${order.totalPrice}"></td>
+                <td th:if="${order.status}" th:text="'Обработано'"></td>
+                <td th:unless="${order.status}" th:text="'Ожидание подтверждения'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div th:insert="~{parts/scripts::copy}"></div>

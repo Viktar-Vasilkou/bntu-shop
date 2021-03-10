@@ -32,7 +32,7 @@
             <td>
                 <form th:action="@{/admin/categories}" th:method="PATCH" id="update-form">
                     <input type="hidden" name="id" th:value="${category.id}">
-                    <input type="text" class="form-control" th:value="${category.name}" name="name">
+                    <input type="text" class="form-control" th:value="${category.name}" minlength="3"  maxlength="20" name="name">
                 </form>
             </td>
             <td class="w-25">

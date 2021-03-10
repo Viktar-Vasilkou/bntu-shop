@@ -40,9 +40,14 @@
             </tr>
             </tbody>
         </table>
-        <button type="button" class="btn btn-success mr-5 ml-5" data-toggle="modal" data-target="#orderModal">
-            Confirm order
-        </button>
+        <div th:if="${#request.userPrincipal}">
+            <button type="button" class="btn btn-success mr-5 ml-5" data-toggle="modal" data-target="#orderModal">
+                Confirm order
+            </button>
+        </div>
+        <div th:unless="${#request.userPrincipal}">
+            <a href="/login" class="btn btn-success mr-5 ml-5">Confirm order</a>
+        </div>
     </div>
     <div th:unless="${cart.entrySet()} and ${cart.entrySet().size() > 0}">
         <h1>Корзина пуста</h1>
